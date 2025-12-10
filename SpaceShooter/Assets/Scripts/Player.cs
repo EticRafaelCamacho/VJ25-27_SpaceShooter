@@ -1,23 +1,24 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour
+public class Player : Damageable
 {
+
     [SerializeField] Bullet bullet;
-    [SerializeField] float fireRate = 1;
+    [SerializeField] float fireRate = 100;
     [SerializeField] float speed = 1;
+    [SerializeField] float bulletDamage = 1;
     Vector3 worldTargetDestiantion;
-    bool isDragging = false;
-    
+    float shootCooldown = 0f;
+
     void Start()
     {
-        InvokeRepeating("Shoot",0,fireRate);
     }
-
 
     void Update()
     {
         Movement();
+        HandleShooting();
     }
 
     void FixedUpdate()
@@ -44,15 +45,28 @@ public class Player : MonoBehaviour
         
     }
 
+    void HandleShooting()
+    {
+        shootCooldown -= Time.deltaTime * fireRate;
+
+        if (shootCooldown <= 0f)
+        {
+            Shoot();
+            shootCooldown = 1;
+        }
+    }
+
     void Shoot()
     {
         Bullet newbullet = Instantiate(bullet, transform.position, Quaternion.identity);
-        newbullet.speed = 15;
-        newbullet.dir = Vector2.up;
+        newbullet.SetDamage(bulletDamage);
+        newbullet.SetSpeed(15);
+        newbullet.SetIsDir(Vector2.up);
+        newbullet.SetIsEnemys(false);
         
     }
-    bool IsMouseInsideScreen()
+    new public void DestroySelf()
     {
-        return Input.mousePosition.x >= 0 && Input.mousePosition.y >= 0 && Input.mousePosition.x <= Screen.width && Input.mousePosition.y <= Screen.height;
+        Destroy(gameObject); 
     }
 }
