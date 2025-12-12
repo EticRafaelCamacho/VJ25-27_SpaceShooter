@@ -8,12 +8,9 @@ public class Player : Damageable
     [SerializeField] float fireRate = 100;
     [SerializeField] float speed = 1;
     [SerializeField] float bulletDamage = 1;
+    [SerializeField] float bulletSpeed = 15;
     Vector3 worldTargetDestiantion;
     float shootCooldown = 0f;
-
-    void Start()
-    {
-    }
 
     void Update()
     {
@@ -60,7 +57,7 @@ public class Player : Damageable
     {
         Bullet newbullet = Instantiate(bullet, transform.position, Quaternion.identity);
         newbullet.SetDamage(bulletDamage);
-        newbullet.SetSpeed(15);
+        newbullet.SetSpeed(bulletSpeed);
         newbullet.SetIsDir(Vector2.up);
         newbullet.SetIsEnemys(false);
         
@@ -69,4 +66,27 @@ public class Player : Damageable
     {
         Destroy(gameObject); 
     }
+
+    #region Stat Increasers
+    public void IncreaseBulletDamage(float amount)
+    {
+        bulletDamage += amount;
+    }
+
+    public void IncreaseBulletSpeed(float amount)
+    {
+        bulletSpeed += amount;
+    }
+
+    public void IncreaseSpeed(float amount)
+    {
+        speed += amount;
+    }
+
+    public void IncreaseFireRate(float amount)
+    {
+        fireRate += amount;
+    }
+    #endregion
 }
+

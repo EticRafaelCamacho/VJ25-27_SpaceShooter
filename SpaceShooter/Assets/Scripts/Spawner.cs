@@ -28,18 +28,15 @@ public class Spawner : MonoBehaviour
 
     Vector3 GetRandomSpawnInArea()
     {
-        // Convert the local size of the collider into world-space extents
         Vector3 size = spawnArea.size;
         Vector3 center = spawnArea.center;
 
-        // Generate random point inside the box (in local space)
         Vector3 randomLocalPos = new Vector3(
             Random.Range(-size.x / 2f, size.x / 2f),
             Random.Range(-size.y / 2f, size.y / 2f),
             0
         );
 
-        // Convert to world space
         return spawnArea.transform.TransformPoint(center + randomLocalPos);
     }
 }

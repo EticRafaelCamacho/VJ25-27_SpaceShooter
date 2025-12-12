@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ColliderScript : MonoBehaviour
+public class PowerUp : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

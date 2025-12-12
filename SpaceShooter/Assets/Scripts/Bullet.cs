@@ -16,10 +16,7 @@ public class Bullet : MonoBehaviour
     public void SetIsEnemys(bool newIsEnemys) {isEnemys = newIsEnemys;}
     public void SetIsDir(Vector2 newDir) {dir = newDir;}
 
-    void Start()
-    {
-        
-    }
+
 
     void FixedUpdate()
     {   
@@ -41,11 +38,10 @@ public class Bullet : MonoBehaviour
         Enemy enemy = trigger.gameObject.GetComponent<Enemy>();
         if (enemy != null && isEnemys == false)
         {
+            print("Bullet Hit");
             enemy.TakeDamage(damage);
             HitEffect();
         }
-
-        
     }
 
     
